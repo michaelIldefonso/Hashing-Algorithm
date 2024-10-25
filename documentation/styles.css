@@ -1,0 +1,90 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+h1 {
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+}
+
+.navbar {
+    width: 12%; /* Decrease width to make it smaller */
+    background-color: #f4f4f4;
+    padding: 15px; /* Adjust padding to reduce height */
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1; /* Ensure it's behind the main content when scrolling */
+    overflow-y: auto; /* Add scrolling if the navbar content exceeds the screen height */
+}
+
+.navbar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.navbar ul li {
+    margin-bottom: 15px; /* Decrease margin between items */
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    display: block;
+    padding: 8px; /* Reduce padding for smaller links */
+    background-color: #ddd;
+    border-radius: 5px;
+    font-size: 13px; /* Slightly smaller font size */
+}
+
+.navbar ul li a:hover {
+    background-color: #ccc;
+}
+
+.content {
+    margin-left: 15%; /* Adjust content margin to match smaller navbar width */
+    padding: 20px;
+    width: 83%; /* Make the content area wider */
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+p, ul {
+    margin-bottom: 20px;
+}
+
+pre {
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center; /* Center the text horizontally */
+    padding: 10px;
+    margin-top: 20px;
+    width: 100%; /* Make sure the footer takes the full width */
+}
