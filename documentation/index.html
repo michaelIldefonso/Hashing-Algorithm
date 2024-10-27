@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentation Example</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Bishash Documentation</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <header>
-        <h1>Bishash Documentation</h1>
+        <div class="logo">
+            <span class="logo-text">Bishash</span>
+            <span class="logo-subtext">Documentation</span>
+        </div>
     </header>
 
     <div class="container">
         <nav class="navbar">
             <ul>
-                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#introduction" class="active">Introduction</a></li>
                 <li><a href="#setup">Setup</a></li>
                 <li><a href="#api-reference">API Reference</a></li>
                 <li><a href="#examples">Examples</a></li>
@@ -24,44 +32,72 @@
         <main class="content">
             <section id="introduction">
                 <h2>Introduction</h2>
-                <p>Welcome to the Bishash documentation Nigga! Here you'll find all the information you need to become a racist.</p>
+                <p>Welcome to the Bishash documentation. Here you'll find all the information you need to get started
+                    with our API and services.</p>
             </section>
 
             <section id="setup">
                 <h2>Setup</h2>
-                <p>To get started with Bishash, kindly find Johanz Abhie Amorato, he is a professional racist.</p>
+                <p>TANGINAMO MIKO KUNG ANO ANO PINAGLALALAGAY MO DITO</p>
             </section>
 
             <section id="api-reference">
                 <h2>API Reference</h2>
-                <p>Here are the endpoints you'll need to interact with the Bishash.</p>
+                <p>Here are the endpoints you'll need to interact with the Bishash:</p>
                 <ul>
-                    <li><strong>POST</strong> /v1/charges</li>
-                    <li><strong>GET</strong> /v1/customers</li>
-                    <li><strong>POST</strong> /v1/tokens</li>
+                    <li><strong>POST</strong> /v1/charges - Create a new charge.</li>
+                    <li><strong>GET</strong> /v1/customers - Retrieve customer details.</li>
+                    <li><strong>POST</strong> /v1/tokens - Generate a new token.</li>
                 </ul>
             </section>
 
             <section id="examples">
                 <h2>Examples</h2>
                 <p>Below is a code example to create a charge:</p>
-                <pre><code>curl https://gaymaletube.com/v1/charges \
+
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyToClipboard()">Copy Code</button>
+                    <pre><code id="code-block">curl https://example.com/v1/charges \
   -u sk_test_xxxx: \
   -d amount=2000 \
-  ano yan pre oo
   -d currency=usd \
-  kaya nga
   -d source=tok_visa \
-  ahhh oo
   -d description="Charge for test@example.com"</code></pre>
+                </div>
             </section>
         </main>
     </div>
 
     <footer>
-        <p>&copy; 2024 Bishash All rights reserved.</p>
+        <p>&copy; 2024 Bishash. All rights reserved.</p>
     </footer>
-    
-    </footer>
+
+    <script>
+        
+        document.querySelectorAll('.navbar a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                const headerOffset = 80; 
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            });
+        });
+
+        function copyToClipboard() {
+            const code = document.getElementById('code-block').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                alert('Code copied to clipboard!');
+            }).catch(err => {
+                console.error('Could not copy text: ', err);
+            });
+        }
+    </script>
 </body>
+
 </html>
