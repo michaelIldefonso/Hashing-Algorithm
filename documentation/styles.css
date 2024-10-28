@@ -10,13 +10,12 @@ html {
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #f7f8fa;
-    color: #333;
+    background-color: #979797; /* Keep one background color */
     line-height: 1.6;
 }
 
 header {
-    background-color: #ffffff;
+    background-color: #1c1e22;
     padding: 20px 40px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -34,30 +33,30 @@ header {
 .logo-text {
     font-size: 24px;
     font-weight: 700;
-    color: #4A90E2;
+    color: white;
     margin-right: 6px;
 }
 
 .logo-subtext {
     font-size: 18px;
     font-weight: 600;
-    color: #5A6371;
+    color: white;
 }
 
 .container {
     display: flex;
     width: 100%;
-    min-height: 100vh;
+    min-height: calc(100vh - 80px); /* Adjusted for footer height */
 }
 
 .navbar {
     width: 220px;
-    background-color: #1c1e22;
+    background-color: #222629;
     padding: 20px;
-    position: sticky;
-    top: 80px;
-    height: calc(100vh - 80px);
-    color: #a0aec0;
+    position: fixed;
+    top: 75px;
+    height: calc(100vh - 75px);
+    color: white;
     display: flex;
     flex-direction: column;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
@@ -65,8 +64,8 @@ header {
 
 .navbar ul {
     list-style: none;
-    padding: 0;
     margin-top: 20px;
+    padding: 0;
 }
 
 .navbar ul li {
@@ -75,7 +74,7 @@ header {
 
 .navbar ul li a {
     text-decoration: none;
-    color: #cbd5e0;
+    color: white;
     display: block;
     padding: 10px;
     border-radius: 5px;
@@ -85,34 +84,30 @@ header {
 
 .navbar ul li a:hover,
 .navbar ul li a.active {
-    background-color: #3a3f47;
-    color: #ffffff;
+    background-color: #DADADA;
+    color: black;
 }
 
 .content {
     flex: 1;
     padding: 40px;
-    max-width: 800px;
-    color: #2d3748;
+    max-width: 100%;
+    margin-left: 240px; /* Adjust for the navbar width */
+    color: black;
+    padding-bottom: 60px; /* Added space for footer */
 }
 
 h2 {
     font-size: 24px;
-    color: #1a202c;
+    color: black;
     margin-bottom: 10px;
-    border-bottom: 2px solid #e2e8f0;
+    border-bottom: 2px solid black;
     padding-bottom: 8px;
 }
 
-p, ul {
+p,
+ul {
     margin-bottom: 20px;
-}
-
-.intro-image {
-    max-width: 100%;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
 }
 
 pre {
@@ -125,51 +120,93 @@ pre {
     border: 1px solid #e2e8f0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     margin-top: 10px;
-    position: relative;
+}
+
+#ins {
+    width: 30%;
+    color: #2d3748;
+    background-color: white;
 }
 
 footer {
-    background-color: #282c34;
+    background-color: #1c1e22;
     color: white;
     text-align: center;
     padding: 15px;
     font-size: 14px;
+    position: relative; /* Make sure footer is positioned normally */
+    z-index: 1; /* Ensure it stays below the header */
 }
 
-/* Copy Code Button */
-.code-container {
-    position: relative;
-}
-
-.copy-btn {
-    padding: 5px 10px;
-    background-color: #4A90E2;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 12px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.copy-btn:hover {
-    background-color: #357ABD;
-}
-
-.copy-btn:active {
-    background-color: #2C5A9D;
-}
-
-/* Responsive Styles */
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
+        min-height: 100vh; /* Ensure full height on smaller screens */
     }
+
     .navbar {
         width: 100%;
         height: auto;
+        position: relative;
+        top: 0;
     }
+
     .content {
-        padding: 20px;
+        margin-left: 0;
+        padding-bottom: 60px; /* Added space for footer */
     }
+}
+
+ul {
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+li {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+li::before {
+    content: "";
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.box {
+    background-color: #E7E7E7;
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.try-it-link {
+    background-color: #8B8B8B;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    width: 100px;
+}
+
+.try-it-link:hover {
+    background-color: #AFDDE5;
+}
+
+
+.navbar-image {
+    text-align: center; /* Center the image */
+    margin-top: 20px; /* Space between navbar and image */
+}
+
+.navbar-image img {
+    max-width: 100%; /* Responsive image */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Optional: round corners */
 }
