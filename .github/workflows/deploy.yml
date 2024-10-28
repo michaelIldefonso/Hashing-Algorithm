@@ -23,7 +23,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./your_build_directory  # Change this to your actual output directory
+          publish_dir: ./documentation  # Change this to your actual output directory
 
       - name: Output Deployment URL
         run: echo "Deployment URL: https://michaelildefonso.github.io/Hashing-Algorithm/documentation/index.html"
