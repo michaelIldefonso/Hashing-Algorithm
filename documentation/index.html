@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,6 +12,7 @@
 </head>
 
 <body>
+
     <header>
         <div class="logo">
             <span class="logo-text">Bishash</span>
@@ -23,91 +23,59 @@
     <div class="container">
         <nav class="navbar">
             <ul>
-                <li><a href="#introduction" class="active">Introduction</a></li>
-                <li><a href="#setup">Setup</a></li>
-                <li><a href="#api-reference">API Reference</a></li>
-                <li><a href="#examples">Examples</a></li>
+                <li><a href="#Overview">Overview</a></li>
+                <li><a href="#Features">Features</a></li>
+                <li><a href="#Requirements">Requirements</a></li>
+                <li><a href="#Installation">Installation</a></li>
+                <li><a href="#Examples">Examples</a></li>
+                <li><a href="#TryIt" class="try-it-link">Try It!</a></li>
+
             </ul>
+            <div class="navbar-image">
+                <img src="logo.jpg" alt="Boss" />
+            </div>
         </nav>
 
-        <main class="content">
-            <section id="Overview">
-                <h2>Overview</h2>
-                <p>This module provides a secure way to hash and verify passwords using 
-                    the Argon2 password hashing algorithm. It includes rate-limiting 
-                    functionality for the hashing process to prevent abuse. Users can 
-                    register by creating a username and password, and then log in by 
-                    verifying their credentials.</p>
-            </section>
-            <section id="Features">
-                <h2>Features</h2>
+        
+
+        <div class="content">
+            <div class="box">
+                <h2 id="Overview">Overview</h2>
+                <p>This module provides a secure way to hash and verify passwords using the Argon2 algorithm with rate-limiting functionality to prevent abuse.</p>
+            </div>
+
+            <div class="box">
+                <h2 id="Features">Features</h2>
                 <ul>
-                    <li>Secure password hashing using Argon2.</li>
-                    <li>Rate limiting for hashing passwords to enchance security.</li>
-                    <li>Simple user registration and login simulation.</li>
+                    <li>Secure password hashing using Argon2</li>
+                    <li>Rate limiting for enhanced security</li>
+                    <li>Simple user registration and login simulation</li>
                 </ul>
+            </div>
 
-            </section>
-            
-
-            <section id="require">
-                <h2>Requirements</h2>
-                <p>Here are requirements needed to use Bishash.</p>
+            <div class="box">
+                <h2 id="Requirements">Requirements</h2>
                 <ul>
                     <li>Python 3.x</li>
                     <li>argon2-cffi library</li>
                     <li>ratelimit library</li>
                 </ul>
-            </section>
+            </div>
 
-            <section id="installation">
-                <h2>Installation</h2>
-                <p>pip install argon2-cffi ratelimit</p>
-            </section>
-            
-            <!-- FOR TESTING, MIKO AYUSIN MO YUNG STYLE -->
-            <section id="examples">
-                <form method="POST">
-                    <h1>Try it out!</h1>
-                    <label for="TEST">Click to try!</label>
-                    <a href="test.html">TEST IT!</a>
+            <div class="box">
+                <h2 id="Installation">Installation</h2>
+                <pre id="ins">pip install argon2-cffi ratelimit</pre>
+            </div>
 
-                </form>
-            </section>
-        </main>
+
+        </div>
     </div>
 
     <footer>
         <p>&copy; 2024 Bishash. All rights reserved.</p>
     </footer>
-    
 
-    <script>
-        
-        document.querySelectorAll('.navbar a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                const headerOffset = 80; 
-                const elementPosition = target.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: "smooth"
-                });
-            });
-        });
-
-        function copyToClipboard() {
-            const code = document.getElementById('code-block').innerText;
-            navigator.clipboard.writeText(code).then(() => {
-                alert('Code copied to clipboard!');
-            }).catch(err => {
-                console.error('Could not copy text: ', err);
-            });
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
