@@ -13,9 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      # Add this step only if you need to build your project
       - name: Build project
         run: |
-          # Add your build commands here (if needed)
+          # Add your build commands here if needed
+          # Example: npm install && npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
