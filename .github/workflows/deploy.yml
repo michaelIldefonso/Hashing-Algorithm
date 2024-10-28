@@ -24,4 +24,4 @@ jobs:
           publish_dir: ./your_build_directory  # Change this to your actual output directory
 
       - name: Output Deployment URL
-        run: echo "Deployment URL: https://username.github.io/repository-name/documentation/index.html"
+        run: echo "Deployment URL: https://michaelildefonso.github.io/Hashing-Algorithm/documentation/index.html"
