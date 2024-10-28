@@ -2,6 +2,33 @@ from ratelimit import limits, sleep_and_retry
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
 import time
+import re
+
+
+def is_strong_password(password):
+    # Check password length
+    if len(password) < 12:
+        return False, "Password must be at least 12 characters long."
+
+    # Check for at least one uppercase letter
+    if not re.search(r'[A-Z]', password):
+        return False, "Password must contain at least one uppercase letter."
+
+    # Check for at least one lowercase letter
+    if not re.search(r'[a-z]', password):
+        return False, "Password must contain at least one lowercase letter."
+
+    # Check for at least one digit
+    if not re.search(r'[0-9]', password):
+        return False, "Password must contain at least one digit."
+
+    # Check for at least one special character
+    if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+        return False, "Password must contain at least one special character."
+
+    return True, "Password is strong."
+
+
 
 ONE_MINUTE = 60
 
@@ -36,13 +63,19 @@ def verify_password(stored_hash, name, entered_password):
 userName = input("Username: ").strip()  # either email or username
 password = input("Password: ").strip()
 
+is_valid, message = is_strong_password(password)
+
 hashed_password = None  # Initialize hashed_password
 
-try:
-    hashed_password = hash_password(userName, password)
-    print("Hashed Password:", hashed_password)
-except Exception as e:
-    print("Password hashing failed:", str(e))
+if is_valid:
+    try:
+        hashed_password = hash_password(userName, password)
+        print("Hashed Password:", hashed_password)
+    except Exception as e:
+        print("Password hashing failed:", str(e))
+else:
+    print(f"Invalid password: {message}")
+
 
 # Check if hashing was successful before verifying the password
 if hashed_password:
