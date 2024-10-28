@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bishash Documentation</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -30,40 +31,48 @@
         </nav>
 
         <main class="content">
-            <section id="introduction">
-                <h2>Introduction</h2>
-                <p>Welcome to the Bishash documentation. Here you'll find all the information you need to get started
-                    with our API and services.</p>
+            <section id="Overview">
+                <h2>Overview</h2>
+                <p>This module provides a secure way to hash and verify passwords using 
+                    the Argon2 password hashing algorithm. It includes rate-limiting 
+                    functionality for the hashing process to prevent abuse. Users can 
+                    register by creating a username and password, and then log in by 
+                    verifying their credentials.</p>
             </section>
-
-            <section id="setup">
-                <h2>Setup</h2>
-                <p>TANGINAMO MIKO KUNG ANO ANO PINAGLALALAGAY MO DITO</p>
-            </section>
-
-            <section id="api-reference">
-                <h2>API Reference</h2>
-                <p>Here are the endpoints you'll need to interact with the Bishash:</p>
+            <section id="Features">
+                <h2>Features</h2>
                 <ul>
-                    <li><strong>POST</strong> /v1/charges - Create a new charge.</li>
-                    <li><strong>GET</strong> /v1/customers - Retrieve customer details.</li>
-                    <li><strong>POST</strong> /v1/tokens - Generate a new token.</li>
+                    <li>Secure password hashing using Argon2.</li>
+                    <li>Rate limiting for hashing passwords to enchance security.</li>
+                    <li>Simple user registration and login simulation.</li>
+                </ul>
+
+            </section>
+            
+
+            <section id="require">
+                <h2>Requirements</h2>
+                <p>Here are requirements needed to use Bishash.</p>
+                <ul>
+                    <li>Python 3.x</li>
+                    <li>argon2-cffi library</li>
+                    <li>ratelimit library</li>
                 </ul>
             </section>
 
+            <section id="installation">
+                <h2>Installation</h2>
+                <p>pip install argon2-cffi ratelimit</p>
+            </section>
+            
+            <!-- FOR TESTING, MIKO AYUSIN MO YUNG STYLE -->
             <section id="examples">
-                <h2>Examples</h2>
-                <p>Below is a code example to create a charge:</p>
+                <form method="POST">
+                    <h1>Try it out!</h1>
+                    <label for="TEST">Click to try!</label>
+                    <a href="test.html">TEST IT!</a>
 
-                <div class="code-container">
-                    <button class="copy-btn" onclick="copyToClipboard()">Copy Code</button>
-                    <pre><code id="code-block">curl https://example.com/v1/charges \
-  -u sk_test_xxxx: \
-  -d amount=2000 \
-  -d currency=usd \
-  -d source=tok_visa \
-  -d description="Charge for test@example.com"</code></pre>
-                </div>
+                </form>
             </section>
         </main>
     </div>
@@ -71,6 +80,7 @@
     <footer>
         <p>&copy; 2024 Bishash. All rights reserved.</p>
     </footer>
+    
 
     <script>
         
