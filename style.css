@@ -1,0 +1,175 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f7f8fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #ffffff;
+    padding: 20px 40px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.logo {
+    display: flex;
+    align-items: baseline;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: #4A90E2;
+    margin-right: 6px;
+}
+
+.logo-subtext {
+    font-size: 18px;
+    font-weight: 600;
+    color: #5A6371;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.navbar {
+    width: 220px;
+    background-color: #1c1e22;
+    padding: 20px;
+    position: sticky;
+    top: 80px;
+    height: calc(100vh - 80px);
+    color: #a0aec0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.navbar ul li {
+    margin-bottom: 10px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #cbd5e0;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.navbar ul li a:hover,
+.navbar ul li a.active {
+    background-color: #3a3f47;
+    color: #ffffff;
+}
+
+.content {
+    flex: 1;
+    padding: 40px;
+    max-width: 800px;
+    color: #2d3748;
+}
+
+h2 {
+    font-size: 24px;
+    color: #1a202c;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 8px;
+}
+
+p, ul {
+    margin-bottom: 20px;
+}
+
+.intro-image {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+pre {
+    background-color: #f4f6f8;
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 14px;
+    color: #2d3748;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-top: 10px;
+    position: relative;
+}
+
+footer {
+    background-color: #282c34;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+}
+
+/* Copy Code Button */
+.code-container {
+    position: relative;
+}
+
+.copy-btn {
+    padding: 5px 10px;
+    background-color: #4A90E2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.copy-btn:hover {
+    background-color: #357ABD;
+}
+
+.copy-btn:active {
+    background-color: #2C5A9D;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    .navbar {
+        width: 100%;
+        height: auto;
+    }
+    .content {
+        padding: 20px;
+    }
+}
