@@ -200,13 +200,3 @@ li::before {
 }
 
 
-.navbar-image {
-    text-align: center; /* Center the image */
-    margin-top: 20px; /* Space between navbar and image */
-}
-
-.navbar-image img {
-    max-width: 100%; /* Responsive image */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 8px; /* Optional: round corners */
-}
