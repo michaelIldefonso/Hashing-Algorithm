@@ -1,8 +1,12 @@
 function smoothScrollToSection(sectionId) {
     const targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        targetSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
+    const headerOffset = document.querySelector('header').offsetHeight; // Get the height of the header
+    const targetPosition = targetSection.getBoundingClientRect().top + window.scrollY - headerOffset; // Adjust the target position by subtracting the header height
+
+    window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth' // Smooth scroll behavior
+    });
 }
 
 document.querySelectorAll('.navbar ul li a').forEach(link => {
