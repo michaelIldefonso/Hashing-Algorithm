@@ -212,4 +212,20 @@ li::before {
 .try-it-link:hover {
     background-color: #AFDDE5;
 }
-
+pre {
+    background-color: #282c34;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 15px;
+    overflow-x: auto;
+    font-size: 16px;
+}
+code {
+    font-family: 'Courier New', Courier, monospace;
+    white-space: pre-wrap; /* Prevents text from overflowing */
+}
+/* Syntax highlighting */
+.keyword { color: #c678dd; }
+.string { color: #98c379; }
+.comment { color: #5c6370; }
+.function { color: #61afef; }
