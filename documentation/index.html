@@ -15,8 +15,10 @@
 
     <header>
         <div class="logo">
+            <img style="width: 50px;" src="tupeNation.png">
             <span class="logo-text">Bishash</span>
             <span class="logo-subtext">Documentation</span>
+            
         </div>
     </header>
 
@@ -27,8 +29,7 @@
                 <li><a href="#Features">Features</a></li>
                 <li><a href="#Requirements">Requirements</a></li>
                 <li><a href="#Installation">Installation</a></li>
-                <li><a href="#Examples">Examples</a></li>
-                <li><a href="tangna" class="try-it-link">Try It!</a></li>
+                <li><a href="test.html" class="try-it-link">Try It!</a></li>
 
             </ul>
         </nav>
@@ -38,33 +39,151 @@
         <div class="content">
             <div class="box">
                 <h2 id="Overview">Overview</h2>
-                <p>This module provides a secure way to hash and verify passwords using the Argon2 algorithm with rate-limiting functionality to prevent abuse.</p>
+                <p>This documentation provides an overview of secure password management using Argon2 hashing, rate limiting, 
+                    and a strong password policy in Python. The following code enforces password strength and limits repeated 
+                    hashing attempts for added security.</p>
             </div>
 
-            <div class="box">
-                <h2 id="Features">Features</h2>
-                <ul>
-                    <li>Secure password hashing using Argon2</li>
-                    <li>Rate limiting for enhanced security</li>
-                    <li>Simple user registration and login simulation</li>
-                </ul>
-            </div>
 
             <div class="box">
-                <h2 id="Requirements">Requirements</h2>
-                <ul>
-                    <li>Python 3.x</li>
-                    <li>argon2-cffi library</li>
-                    <li>ratelimit library</li>
-                </ul>
+                <h1 id="Features">Features</h1>
+
+                <h2>1. Strong Password Policy Enforcement</h2>
+                <p>This feature ensures that users create secure passwords by enforcing a set of criteria. The <code>is_strong_password</code> function checks the password length, the presence of uppercase and lowercase letters, at least one digit, and at least one special character.</p>
+                <pre><code>
+                    <span class="keyword">import</span> re
+            
+                    <span class="keyword">def</span> <span class="function">is_strong_password</span>(passW):
+                        <span class="comment"># Check password length</span>
+                        <span class="keyword">if</span> <span class="keyword">len</span>(passW) < 12:
+                            <span class="keyword">return</span> <span class="keyword">False</span>, <span class="string">"Password must be at least 12 characters long."</span>
+            
+                        <span class="comment"># Check for uppercase</span>
+                        <span class="keyword">if</span> <span class="keyword">not</span> re.search(r'[A-Z]', passW):
+                            <span class="keyword">return</span> <span class="keyword">False</span>, <span class="string">"Password must contain at least one uppercase letter."</span>
+            
+                        <span class="comment"># Check for lowercase letter</span>
+                        <span class="keyword">if</span> <span class="keyword">not</span> re.search(r'[a-z]', passW):
+                            <span class="keyword">return</span> <span class="keyword">False</span>, <span class="string">"Password must contain at least one lowercase letter."</span>
+            
+                        <span class="comment"># Check for digit</span>
+                        <span class="keyword">if</span> <span class="keyword">not</span> re.search(r'[0-9]', passW):
+                            <span class="keyword">return</span> <span class="keyword">False</span>, <span class="string">"Password must contain at least one digit."</span>
+            
+                        <span class="comment"># Check for special character</span>
+                        <span class="keyword">if</span> <span class="keyword">not</span> re.search(r'[!@#$%^&*(),.?":{}|<>]', passW):
+                            <span class="keyword">return</span> <span class="keyword">False</span>, <span class="string">"Password must contain at least one special character."</span>
+            
+                        <span class="keyword">return</span> <span class="keyword">True</span>, <span class="string">"Password is strong."</span>
+                </code></pre>
+            
+                <h2>2. Secure Hashing with Argon2</h2>
+                <p>This feature uses Argon2 for secure password hashing. Argon2 is configured with high values for time cost, memory cost, and hash length to increase security.</p>
+                <pre><code>
+                    <span class="keyword">from</span> argon2 <span class="keyword">import</span> PasswordHasher
+            
+                    <span class="comment"># Initialize the PasswordHasher with custom parameters</span>
+                    ph = PasswordHasher(
+                        time_cost=12,          <span class="comment"># Number of iterations</span>
+                        memory_cost=2 ** 16,   <span class="comment"># Memory cost in KiB (65536 KiB or ~64MB)</span>
+                        parallelism=1,         <span class="comment"># Number of parallel threads</span>
+                        hash_len=64,           <span class="comment"># Length of the resulting hash in bytes</span>
+                        salt_len=16            <span class="comment"># Salt length in bytes</span>
+                    )
+                </code></pre>
+            
+                <h2>3. Pepper for Enhanced Security</h2>
+                <p>A "pepper" is added to the password and username to provide an additional layer of security. This static pepper value should be securely managed in a production environment, preferably stored outside of the application code, such as in environment variables.</p>
+                <pre><code>
+                    <span class="comment"># Define a fixed pepper value for additional security</span>
+                    PEPPER = <span class="string">"&lt;Your_Pepper_Here&gt;"</span>  <span class="comment"># Replace with a securely stored secret in production</span>
+                </code></pre>
+            
+                <h2>4. Rate Limiting</h2>
+                <p>This feature uses the <code>sleep_and_retry</code> decorator to limit the number of hashing attempts, mitigating the risk of brute-force attacks by restricting hashing to a maximum of 5 attempts per minute.</p>
+                <pre><code>
+                    <span class="keyword">from</span> ratelimit <span class="keyword">import</span> limits, sleep_and_retry
+            
+                    ONE_MINUTE = 60
+            
+                    <span class="comment"># Rate-limited function to hash the password</span>
+                    @sleep_and_retry  <span class="comment"># Ensures the function sleeps if the rate limit is reached</span>
+                    @limits(calls=5, period=ONE_MINUTE)
+                    <span class="keyword">def</span> <span class="function">bis_hash</span>(name, passwrd):
+                        combined_input = name + passwrd + PEPPER
+                        <span class="keyword">return</span> ph.hash(combined_input)
+                </code></pre>
+            
+                <h2>5. Password Hash Verification</h2>
+                <p>The <code>verify_password</code> function securely verifies a user’s entered password by combining it with the username and pepper, then checking it against the stored hash.</p>
+                <pre><code>
+                    <span class="keyword">from</span> argon2.exceptions <span class="keyword">import</span> VerifyMismatchError
+            
+                    <span class="keyword">def</span> <span class="function">verify_password</span>(stored_hash, name, entered_password):
+                        combined_input = name + entered_password + PEPPER
+                        <span class="keyword">try</span>:
+                            ph.verify(stored_hash, combined_input)
+                            <span class="keyword">return</span> <span class="keyword">True</span>
+                        <span class="keyword">except</span> VerifyMismatchError:
+                            <span class="keyword">return</span> <span class="keyword">False</span>
+                </code></pre>
+            </div>
+
+
+            <div class="box">
+            <h1 id="Requirements">Password Hashing Requirements</h1>
+
+            <h2>Python Environment:</h2>
+            <p>Ensure you have Python installed (preferably Python 3.6 or newer).</p>
+
+            <h2>Required Libraries:</h2>
+            <ul>
+                <li><strong>argon2-cffi:</strong> This library is required to use the Argon2 password hashing algorithm.</li>
+                <li><strong>ratelimit:</strong> This library is used to limit the number of calls to the <code>bis_hash</code> function, preventing abuse.</li>
+                <li><strong>re:</strong> This is part of the standard library and is used for regular expression operations.</li>
+            </ul>
+            
+
+            <h2>Hashing Parameters:</h2>
+            <ul>
+                <li><strong>time_cost:</strong> Specifies the number of iterations for the hashing process (increased time cost results in more security).</li>
+                <li><strong>memory_cost:</strong> Defines the amount of memory (in bytes) the hashing algorithm can use (in your case, 2<sup>16</sup> bytes).</li>
+                <li><strong>parallelism:</strong> The number of parallel threads (your implementation uses a single thread).</li>
+                <li><strong>hash_len:</strong> The length of the resulting hash (set to 64 bytes in your implementation).</li>
+                <li><strong>salt_len:</strong> The length of the random salt used in the hashing process (set to 16 bytes).</li>
+            </ul>
+
+            <h2>Password Policy:</h2>
+            <ul>
+                <li>Passwords must be at least 12 characters long.</li>
+                <li>Passwords must contain:
+                    <ul>
+                        <li>At least one uppercase letter</li>
+                        <li>At least one lowercase letter</li>
+                        <li>At least one digit</li>
+                        <li>At least one special character from the set <code>!@#$%^&*(),.?":{}|&lt;&gt;</code></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h2>Rate Limiting:</h2>
+            <p>The <code>bis_hash</code> function is rate-limited to 5 calls per minute to prevent brute-force attacks.</p>
+
+            <h2>Security Practices</h2>
+            <ul>
+                <li><strong>PEPPER:</strong> A static string that should not be exposed. It is added to the password and username before hashing. Ensure this value is kept secret.</li>
+                <li><strong>Error Handling:</strong> Ensure proper handling of exceptions, especially during password verification.</li>
+                <li><strong>Secure Environment:</strong> Use this implementation in a secure environment, where access to sensitive functions is restricted.</li>
+            </ul>
             </div>
 
             <div class="box">
                 <h2 id="Installation">Installation</h2>
-                <pre id="ins">pip install argon2-cffi ratelimit</pre>
+                <p>You can install the necessary external libraries using pip:</p>
+                <pre>
+                    pip install argon2-cffi ratelimit
+                </pre>
             </div>
-
-
         </div>
     </div>
 
