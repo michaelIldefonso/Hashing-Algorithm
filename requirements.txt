@@ -1,1 +1,2 @@
-
+argon2-cffi==23.1.0
+ratelimit==2.2.1
