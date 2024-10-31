@@ -132,6 +132,7 @@ header::after {
     color: black;
     padding-bottom: 60px; 
 }
+
 h1 {
     border-bottom: 2px solid black;
     margin-bottom: 5px;
@@ -141,7 +142,6 @@ h2 {
     font-size: 24px;
     color: black;
     margin-bottom: 5px;
-
     padding-bottom: 5px;
     padding-top: 10px;
 }
@@ -220,23 +220,41 @@ li::before {
     width: 100%;
     height: 50px;
 }
-.burger {
-    display: none; /* Hidden by default */
-    font-size: 30px;
-    background: none;
-    border: none;
-    color: var(--text-color);
-    cursor: pointer;
-    margin-left: auto; /* Push the button to the right */
+header.hidden {
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
 }
+
+.burger {
+    display: none; 
+    font-size: 30px;
+    background: none;
+    border: none;
+    color: black;
+    cursor: pointer;
+    margin: 10px 335px 15px 5px;
+    padding: 0; 
+    transition: background-color 0.3s, color 0.3s; 
+    position: fixed; 
+    top: 75px; 
+    right: 20px;
+}
+
+.burger:hover {
+    background-color: rgba(255, 145, 0, 0.2); 
+    color: black; 
+}
+
 .close {
-    display: none; /* Hidden by default */
+    display: none; 
     font-size: 30px;
     background: none;
     border: none;
     color: var(--text-color);
     cursor: pointer;
-    margin-bottom: 10px; /* Space between the close button and navbar items */
+    position: fixed;
+    top: 15px;
+    left: 15px; 
 }
 
 @media (max-width: 768px) {
@@ -244,37 +262,41 @@ li::before {
         flex-direction: column;
         min-height: 100vh; 
     }
+
     .close {
-        display: block; /* Show close button when navbar is active */
+        display: block; 
     }
 
     .navbar {
-        display: none; /* Hide navbar on mobile */
-        flex-direction: column; /* Stack navbar items */
-        width: 100%;
+        display: none; 
+        flex-direction: column; 
+        width: 100%; 
         background-color: var(--accent-color);
-        position: absolute; /* Position absolute to overlay the content */
-        top: 80px; /* Below the header */
-        left: 0;
+        position: fixed; 
+        top: 80px; 
+        left: 50%; 
+        transform: translateX(-50%); 
     }
 
     .navbar.active {
-        display: flex; /* Show navbar when active */
+        display: flex; 
     }
 
+    .navbar.active ~ .burger {
+        display: none; 
+    }
 
     .content {
-        margin-left: 0;
-        padding: 0 0 0 60px;
+        margin-left: 0; 
+        padding: 0 30px; 
     }
 
     pre {
-        margin: 0 0 0 0;
+        margin: 0; 
     }
 
-
     h2 {
-        font-size: 20px;
+        font-size: 20px; 
     }
     
     .navbar ul li a {
@@ -282,11 +304,9 @@ li::before {
     }
 
     .burger {
-        display: block; /* Show burger on mobile */
-        left: 0;
+        display: block;  
     }
 }
-
 
 .keyword { color: #c678dd; }
 .string { color: #98c379; }
