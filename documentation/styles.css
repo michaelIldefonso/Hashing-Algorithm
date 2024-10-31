@@ -240,7 +240,6 @@ header.hidden {
     cursor: pointer;
     margin: 10px 335px 15px 5px;
     padding: 0; 
-    transition: background-color 0.3s, color 0.3s; 
     position: fixed; 
     top: 75px; 
     right: 20px;
@@ -276,7 +275,6 @@ header.hidden {
         display: none; 
         flex-direction: column; 
         width: 100%; 
-        background-color: var(--accent-color);
         position: fixed; 
         top: 75px; 
         left: 50%; 
