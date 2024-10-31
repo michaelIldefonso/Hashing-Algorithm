@@ -8,15 +8,15 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: #f4f4f4;
+            background-color: #979797;
         }
         .container {
             max-width: 600px;
             margin: 100px auto;
             padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #E7E7E7;
+            border-radius: 40px;
+            box-shadow: 0 0 10px black;
         }
         h1, h2 {
             text-align: center;
@@ -32,30 +32,34 @@
             border-radius: 5px;
             font-size: 16px;
         }
-        .button {
-            background-color: #4CAF50;
+        #backButton{
+            width: 80px;
+            border-radius: 17px;
+        }
+
+        .button, .button-secondary {
+            background-color: #8B8B8B;
             color: white;
-            padding: 10px 20px;
+            font-weight: bold;
+            text-align: center;
+            width: 150px;
+            padding: 10px 2px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
             margin: 10px 5px;
-            display: inline-block;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s; 
         }
-        .button-secondary {
-            background-color: #f44336;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin: 10px 5px;
-            display: inline-block;
-        }
-        .button:hover, .button-secondary:hover {
-            opacity: 0.9;
+
+        .button:hover,
+        .button-secondary:hover,
+        .button:focus,
+        .button-secondary:focus {
+            background-color: #FF9100; 
+            color: black;
+            outline: 2px solid #FF9100; 
+            transform: scale(1.05); 
         }
         .form-section {
             margin-top: 20px;
@@ -64,7 +68,7 @@
         label {
             display: block;
             font-size: 14px;
-            color: #555;
+            color: black;
             margin-bottom: 5px;
         }
         #result {
@@ -73,16 +77,36 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            background-color: #e9ecef;
+            background-color: white;
             font-size: 16px;
             color: #333;
         }
+        .header-section {
+            background: linear-gradient(135deg, #1c1e22, #FF9100); 
+            padding: 20px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            text-align: center;
+            color: white;
+            cursor: default;
+        }
+
+        .header-section h1, .header-section h2 {
+            margin: 0;
+            color: inherit;
+        }
+       
+
+        
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Form</h1>
-        <h2>Hash Generator</h2>
+        <div class="header-section">
+            <h1>Form</h1>
+            <h2>Hash Generator</h2>
+        </div>
+       
         <form method="POST">
             <div class="form-section">
                 <label for="username">Enter Username for Hash:</label>
