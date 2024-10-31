@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Form with Hash Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        .container input[type="text"],
+        .container input[type="number"],
+        .container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            display: inline-block;
+        }
+        .button-secondary {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            display: inline-block;
+        }
+        .button:hover, .button-secondary:hover {
+            opacity: 0.9;
+        }
+        .form-section {
+            margin-top: 20px;
+            margin-right: 20px;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        #result {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #e9ecef;
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Form</h1>
+        <h2>Hash Generator</h2>
+        <form method="POST">
+            <div class="form-section">
+                <label for="username">Enter Username for Hash:</label>
+                <input type="text" name="username" placeholder="Enter Username" required><br>
+                <label for="email">Enter Email for Hash:</label>
+                <input type="text" name="email" placeholder="Enter Email" required><br>
+                <label for="number">Enter Phone Number for Hash:</label>
+                <input type="number" name="number" placeholder="Enter Number" required><br>
+                <label for="password">Enter Password for Hash:</label>
+                <input type="password" id="password" placeholder="Enter Password" required>
+                <button type="button" class="button" id="generateButton">Generate Hash</button>
+                <button type="reset" class="button-secondary" id="resetButton">Reset Form</button>
+            </div>
+        </form>
+        <div id="result">Hash Result: <span id="hashValue">No hash generated yet.</span></div>
+        <button class="button" id="backButton">Back</button>
+    </div>
+
+    <script>
+        document.getElementById('generateButton').addEventListener('click', function() {
+            const username = document.querySelector('input[name="username"]').value;
+            const email = document.querySelector('input[name="email"]').value;
+            const number = document.querySelector('input[name="number"]').value;
+            const password = document.getElementById('password').value;
+
+            // Example hash generation (you can replace this with your own hashing logic)
+            const hash = btoa(username + email + number + password); // Basic Base64 encoding as a placeholder
+
+            // Display the result
+            document.getElementById('hashValue').textContent = hash;
+        });
+        document.getElementById('backButton').addEventListener('click', function() {
+            window.location.href = 'documentation/index.html';
+        });
+    </script>
+</body>
+</html>
