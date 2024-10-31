@@ -40,20 +40,10 @@ closeBtn.addEventListener('click', () => {
 });
 
 window.addEventListener('scroll', () => {
-    if (navbar.classList.contains('active')) {
-    }
-});
-let lastScrollTop = 0;
-const header = document.querySelector('header');
-
-window.addEventListener('scroll', () => {
-    const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    if (currentScrollTop > lastScrollTop) {
-        header.classList.add('hidden');
+    const header = document.querySelector('header');
+    if (window.scrollY > header.offsetHeight) {
+        navbar.classList.add('scrolled');
     } else {
-        header.classList.remove('hidden');
+        navbar.classList.remove('scrolled');
     }
-
-    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
 });
