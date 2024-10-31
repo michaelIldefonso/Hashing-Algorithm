@@ -247,7 +247,6 @@ header.hidden {
 }
 
 .burger:hover {
-    background-color: rgba(255, 145, 0, 0.2); 
     color: black; 
 }
 
@@ -279,7 +278,7 @@ header.hidden {
         width: 100%; 
         background-color: var(--accent-color);
         position: fixed; 
-        top: 90px; 
+        top: 75px; 
         left: 50%; 
         transform: translateX(-50%); 
     }
