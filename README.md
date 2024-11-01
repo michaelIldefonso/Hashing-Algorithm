@@ -7,4 +7,5 @@ A simple hashing algorithm library for demonstration purposes.
 You can install it directly from GitHub:
 
 ```bash
-pip install git+https://github.com/yourusername/your-hashing-library.git
+pip install bisHash
+

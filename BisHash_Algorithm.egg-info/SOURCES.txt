@@ -1,9 +1,0 @@
-README.md
-setup.py
-BisHash_Algorithm.egg-info/PKG-INFO
-BisHash_Algorithm.egg-info/SOURCES.txt
-BisHash_Algorithm.egg-info/dependency_links.txt
-BisHash_Algorithm.egg-info/requires.txt
-BisHash_Algorithm.egg-info/top_level.txt
-hashing/__init__.py
-hashing/hashing.py

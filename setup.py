@@ -3,8 +3,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='BisHash Algorithm',
-    version='0.1',
+    name='bisHash',
+    version='0.22.1',
     packages=find_packages(),
     description='A simple hashing algorithm library',
     long_description=open("README.md").read(),
