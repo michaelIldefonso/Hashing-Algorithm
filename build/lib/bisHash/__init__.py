@@ -1,5 +1,5 @@
 # hashing/__init__.py
 
-from .hashing import HashingAlgorithm
+from .hashing import bis_hash
 
-__all__ = ["HashingAlgorithm"]
+__all__ = ["bis_hash"]

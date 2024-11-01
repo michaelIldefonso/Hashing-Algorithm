@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='bisHash',
-    version='0.23',
+    version='0.25',
     packages=find_packages(),
     description='A simple hashing algorithm library',
     long_description=open("README.md").read(),
