@@ -1,8 +1,8 @@
 function smoothScrollToSection(sectionId) {
     const targetSection = document.getElementById(sectionId);
     const headerOffset = document.querySelector('header').offsetHeight; 
-    const targetPosition = targetSection.getBoundingClientRect().top + window.scrollY - headerOffset
-                            - (window.innerHeight / 2) + (targetSection.offsetHeight / 2) - 50;
+    const targetPosition = targetSection.getBoundingClientRect().top + window.scrollY - headerOffset;
+                            
 
     window.scrollTo({
         top: targetPosition,

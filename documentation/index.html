@@ -38,7 +38,8 @@
             <li><a href="#APIIntegration">API Integration</a></li>
             <li><a href="#testingFaq">Testing and FAQ</a></li>
             <li><a href="#troubleshoot">Troubleshoot Guide</a></li>
-            <li><a href="testpage.html" class="try-it-link">Try It!</a></li>
+            <li><a href="#Examples">Sample</a></li>
+            <!--<li><a href="testpage.html" class="try-it-link">Try It!</a></li>-->
         </ul>
     </nav>
 
@@ -184,8 +185,15 @@
 
         <div class="box">
             <h1 id="Installation">Installation</h1>
-            <p>You can install the necessary external libraries using pip:</p>
-            <pre>pip install argon2-cffi ratelimit</pre>
+            <p>You can install the necessary package using pip:</p>
+            <pre>pip install bisHash</pre>
+
+            <p>You can upgrade the algorithm using pip</p>
+            <pre>pip install --upgrade bisHash</pre>
+
+            <p>You can import the algorithm by entering this syntax:</p>
+            <pre><code><span class="keyword">from</span> <span class="function">bisHash.hashing</span> <span class="keyword">import</span> <span class="function">bis_hash</span>, <span class="function">verify_password</span>, <span class="function">is_strong_password</span></code></pre>
+            
         </div>
 
         <div class="box">
@@ -336,7 +344,19 @@
             <span class="keyword">else</span>:
                 <span class="function">print</span>(<span class="keyword">message</span>)
             </code></pre>
+        </div>
 
+        <div class="box">
+            <h1 id="Examples">Sample Sign up</h1>
+            <pre><code><span class="keyword">from</span> <span class="function">bisHash.hashing</span> <span class="keyword">import</span> <span class="function">bis_hash</span>, <span class="function">verify_password</span>, <span class="function">is_strong_password</span>
+                <span class="comment">Sign up sample</span>
+                <span class="keyword">Email:</span> <span class="string">"miko123@gmail.com"</span>
+                <span class="keyword">Password:</span> <span class="string">"miko123456789"</span>
+                
+                <span class="comment"># Expected Hashed Password</span>
+                <span class="keyword">Expected hashed_password:</span> <span class="string">$argon2id$v=19$m=65536,t=12,p=1$0yTpXqY2PzpgLu8pN8fxKg$u0CVOOwywmEy+paA
+                    BuXm5KfrYoq5OWzRtCj1rHSRbUpY1WDZSnU7bov9TAMp7jjMKBq+Zz7Z4HnINDH0HBQceg</span>
+                </code></pre>
         </div>
     </div>
 </div>
