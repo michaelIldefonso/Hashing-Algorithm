@@ -41,13 +41,13 @@ ph = PasswordHasher(
 
 # Rate-limited function to hash the password
 @sleep_and_retry  # Ensures that the function sleeps if the limit is reached
-@limits(calls=5, period=ONE_MINUTE)
+@limits(calls=5, period=ONE_MINUTE) #any = usn/number/email 
 def bis_hash(any, passwrd):
     combined_input = any + passwrd + PEPPER
     return ph.hash(combined_input)
 
 # Function to verify a password
-def verify_password(stored_hash, any, entered_password):
+def verify_password(stored_hash, any, entered_password): 
     # Combine the any value usn/number/email etc and entered password
     combined_input = any + entered_password + PEPPER
     try:
