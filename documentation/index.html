@@ -180,6 +180,8 @@
                 <li><strong>Error Handling:</strong> Ensure proper handling of exceptions, especially during password verification.</li>
                 <li><strong>Secure Environment:</strong> Use this implementation in a secure environment, where access to sensitive functions is restricted.</li>
             </ul>
+
+            
         </div>
 
         <div class="box">
@@ -419,7 +421,8 @@
         </div>
 
         <div class="box">
-            <h1 id="Examples">Sample Sign up</h1>
+            <h1 id="Examples">Samples</h1>
+            <h2>Successful Hashing</h2>
             <pre><code><span class="keyword">from</span> <span class="function">bisHash.hashing</span> <span class="keyword">import</span> <span class="function">bis_hash</span>, <span class="function">verify_password</span>, <span class="function">is_strong_password</span>
                 <span class="comment">Sign up sample</span>
                 <span class="keyword">Email:</span> <span class="string">"miko123@gmail.com"</span>
@@ -428,8 +431,42 @@
                 <span class="comment"># Expected Hashed Password</span>
                 <span class="keyword">Expected hashed_password:</span> <span class="string">$argon2id$v=19$m=65536,t=12,p=1$0yTpXqY2PzpgLu8pN8fxKg$u0CVOOwywmEy+paA
                     BuXm5KfrYoq5OWzRtCj1rHSRbUpY1WDZSnU7bov9TAMp7jjMKBq+Zz7Z4HnINDH0HBQceg</span>
-                </code></pre>
+            </code></pre>
+            
+            <h2>Verifying Password</h2>
+            <pre><code><span class="keyword">from</span> <span class="function">bisHash.hashing</span> <span class="keyword">import</span> <span class="function">bis_hash</span>, <span class="function">verify_password</span>, <span class="function">is_strong_password</span>
+                <span class="comment">Registered User</span>
+                <span class="keyword">Email:</span> <span class="string">"miko123@gmail.com"</span>
+                <span class="keyword">Password:</span> <span class="string">"miko123456789"</span>
+                <span class="comment"># Expected Hashed Password</span>
+                <span class="keyword">Expected hashed_password:</span> <span class="string">$argon2id$v=19$m=65536,t=12,p=1$0yTpXqY2PzpgLu8pN8fxKg$u0CVOOwywmEy+paA
+                    BuXm5KfrYoq5OWzRtCj1rHSRbUpY1WDZSnU7bov9TAMp7jjMKBq+Zz7Z4HnINDH0HBQceg</span>
+                
+                <span class="comment">Sample Log In</span>
+                <span class="keyword">Email:</span> <span class="string">"miko123@gmail.com"</span>
+                <span class="keyword">Password:</span> <span class="string">"miko123456780"</span>
+                <span class="comment"># Expected Output</span>
+                <span class="error">"Invalid credentials"</span>
+            </code></pre>
+
+            <h2>Password is not strong enough</h2>
+            <pre><code><span class="keyword">from</span> <span class="function">bisHash.hashing</span> <span class="keyword">import</span> <span class="function">bis_hash</span>, <span class="function">verify_password</span>, <span class="function">is_strong_password</span>
+            <span class="keyword">username:</span> <span class="string">"JonathanD"</span>
+            <span class="keyword">Email:</span> <span class="string">"JonathanDelda23@gmail.com"</span>
+            <span class="keyword">Password:</span> <span class="string">JD123</span>
+
+            <span class="comment"># Expected Output</span>
+            <span class="error">"Password does not meet strength requirements."</span>
+            </code></pre>
+
+
+
+
+                
+            
+            
         </div>
+
     </div>
 </div>
 

@@ -316,3 +316,4 @@ header.hidden {
 .string { color: #98c379; }
 .comment { color: #5c6370; }
 .function { color: #61afef; }
+.error {color: rgb(232, 46, 46)}
