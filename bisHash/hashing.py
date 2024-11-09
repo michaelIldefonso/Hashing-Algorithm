@@ -12,7 +12,8 @@ MAX_FAILED_ATTEMPTS = 5
 LOCKOUT_TIME = 10 * 60  # Time for lockout if the max number of attemot is exceeded (in seconds)
 
 # in memory storage for number of failed attempts
-failed_attempts = defaultdict(list)  # Tracks failed attempts for email, token, and IP
+failed_attempts = defaultdict(list)  # Login Tracks failed attempts for email, token, and IP
+bisHash_attempts = defaultdict(list)
 
 # Custom Password Hasher
 ph = PasswordHasher(
@@ -38,12 +39,28 @@ def is_strong_password(password):
     return True, "Password is strong."
 
 # Rate-limited function to hash the password
-@sleep_and_retry
-@limits(calls=5, period=ONE_MINUTE)
 def bis_hash(identifier, password):
     """Hash the password"""
     combined_input = identifier + password + PEPPER
     return ph.hash(combined_input)
+
+
+def rate_limited_bis_hash(identifier, password):
+    current_time = time.time()
+    
+    # Clear out outdated attempts
+    bisHash_attempts[identifier] = [timestamp for timestamp in bisHash_attempts[identifier] if current_time - timestamp < ONE_MINUTE]
+
+    if len(bisHash_attempts[identifier]) >= 5:  # Maximum 5 attempts per identifier per minute
+        raise Exception("Rate limit exceeded for password hashing.")
+    
+    # Log this attempt
+    bisHash_attempts[identifier].append(current_time)
+    
+    # Perform the hash
+    combined_input = identifier + password + PEPPER
+    return ph.hash(combined_input)
+
 
 def track_failed_attempt(identifier):
     """Track failed login attempts for rate limiting and lockout"""
