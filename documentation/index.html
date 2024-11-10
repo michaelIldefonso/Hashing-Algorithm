@@ -198,101 +198,108 @@
         
         <div class="box">
             <h1 id="functions">Functions</h1>
+        
             <h2>bis_hash</h2>
             <pre><code>
-                <span class="function">def</span> <span class="keyword">bis_hash</span>(<span class="keyword">any</span>, <span class="keyword">passwrd</span>):
-                    <span class="keyword">combined_input</span> = <span class="keyword">any</span> + <span class="keyword">passwrd</span> + <span class="string">PEPPER</span>
+                <span class="function">def</span> <span class="keyword">bis_hash</span>(<span class="keyword">identifier</span>, <span class="keyword">password</span>):
+                    <span class="keyword">current_time</span> = <span class="keyword">time.time</span>()
+                    
+                    <span class="comment"># Clear out outdated attempts</span>
+                    <span class="keyword">bisHash_attempts</span>[<span class="keyword">identifier</span>] = [
+                        <span class="keyword">timestamp</span> 
+                        <span class="keyword">for</span> <span class="keyword">timestamp</span> 
+                        <span class="keyword">in</span> <span class="keyword">bisHash_attempts</span>[<span class="keyword">identifier</span>]
+                        <span class="keyword">if</span> <span class="keyword">current_time</span> - <span class="keyword">timestamp</span> < <span class="keyword">ONE_MINUTE</span>
+                    ]
+
+                    <span class="comment"># Check if maximum attempts are exceeded</span>
+                    <span class="keyword">if</span> <span class="keyword">len</span>(<span class="keyword">bisHash_attempts</span>[<span class="keyword">identifier</span>]) >= <span class="keyword">5</span>:
+                        <span class="keyword">raise Exception</span>(<span class="string">"Too many sign-up attempts. Please try again later."</span>)
+
+                    <span class="comment"># Log this attempt</span>
+                    <span class="keyword">bisHash_attempts</span>[<span class="keyword">identifier</span>].<span class="keyword">append</span>(<span class="keyword">current_time</span>)
+
+                    <span class="comment"># Perform the hash</span>
+                    <span class="keyword">combined_input</span> = <span class="keyword">identifier</span> + <span class="keyword">password</span> + <span class="string">PEPPER</span>
                     <span class="keyword">return</span> <span class="keyword">ph.hash</span>(<span class="keyword">combined_input</span>)
-                </code></pre>
-            <p>The <code>bis_hash</code> function generates a secure hash by combining a user's identifier with their password and a pepper. This combined approach strengthens the password hash, making it more resistant to attacks. Here’s a breakdown of the function’s components:</p>
+            </code></pre>
+
+            <p>The <code>bis_hash</code> function generates a secure hash for user registration while implementing rate limiting to prevent abuse. Here is a breakdown of its components:</p>
             <ul>
-                <li>
-                    <strong>Parameters:</strong>
+                <li><strong>Parameters:</strong>
                     <ul>
-                        <li><code>any</code>: A user-specific identifier, such as a username, email, or ID number.</li>
-                        <li><code>password</code>: The password that the user provides.</li>
+                        <li><code>identifier</code>: A user-specific identifier, such as a username, email, or ID number.</li>
+                        <li><code>password</code>: The user's password to be hashed.</li>
                     </ul>
                 </li>
-                <li>
-                    <strong>Combining Inputs:</strong>
-                    <p>The function concatenates the identifier (<code>any</code>), the password (<code>passwrd</code>), and a constant value called <code>PEPPER</code>.</p>
-                    <p><code>PEPPER</code> is an additional secret string defined within the application and is not stored alongside the user's data. It adds an extra layer of security, as only the application knows the pepper value, protecting the hash even if database information is compromised.</p>
+                <li><strong>Rate Limiting:</strong>
+                    <p>The function tracks recent hashing attempts using an in-memory dictionary <code>bisHash_attempts</code>. It checks for the number of attempts made within the past minute:</p>
+                    <ul>
+                        <li>If there are 5 or more attempts in the last minute for the same <code>identifier</code>, the function raises an exception to prevent further attempts.</li>
+                        <li>This helps mitigate brute-force attacks by limiting the rate at which users can generate password hashes.</li>
+                    </ul>
                 </li>
-                <li>
-                    <strong>Hashing:</strong>
-                    <p>The <code>ph.hash()</code> function (from a password hashing library) is called with the combined string as its input. This library uses a slow, secure hashing algorithm, which is designed to be computationally intensive, making it resistant to brute-force attacks.</p>
-                    <p>The function returns the resulting secure hash.</p>
+                <li><strong>Combining Inputs:</strong>
+                    <p>The function concatenates the <code>identifier</code>, <code>password</code>, and a secret <code>PEPPER</code> value to form the input for hashing. The pepper is a secret value known only to the application, adding an extra layer of security.</p>
+                </li>
+                <li><strong>Hashing:</strong>
+                    <p>The <code>ph.hash()</code> method is used to create a secure hash from the combined input string.</p>
                 </li>
             </ul>
+
+        
             <h2>verify_password</h2>
             <pre><code>
-                <span class="function">def</span> <span class="keyword">verify_password</span>(<span class="keyword">stored_hash</span>, <span class="keyword">any</span>, <span class="keyword">entered_password</span>):
-                    <span class="keyword">combined_input</span> = <span class="keyword">any</span> + <span class="keyword">entered_password</span> + <span class="string">PEPPER</span>
+                <span class="function">def</span> <span class="keyword">verify_password</span>(<span class="keyword">stored_hash</span>, <span class="keyword">identifier</span>, <span class="keyword">entered_password</span>):
+                    <span class="keyword">combined_input</span> = <span class="keyword">identifier</span> + <span class="keyword">entered_password</span> + <span class="string">PEPPER</span>
                     <span class="keyword">try</span>:
                         <span class="keyword">ph.verify</span>(<span class="keyword">stored_hash</span>, <span class="keyword">combined_input</span>)
                         <span class="keyword">return</span> <span class="keyword">True</span>
                     <span class="keyword">except</span> <span class="keyword">VerifyMismatchError</span>:
                         <span class="keyword">return</span> <span class="keyword">False</span>
                 </code></pre>
-            <p>The <code>verify_password</code> function is responsible for validating whether a user's provided credentials match a previously stored password hash. It plays a crucial role in the authentication process. Here’s a detailed explanation of how it works:</p>
-            
+            <p>The <code>verify_password</code> function checks if a user's entered credentials match the stored password hash, serving a critical role in the authentication process:</p>
+        
             <h3>Parameters:</h3>
             <ul>
-                <li><strong>stored_hash:</strong> This is the hashed password stored in the database. It represents the hash created from the original password and user identifier during registration or account setup.</li>
-                <li><strong>any:</strong> This is a user-specific identifier, which could be a username, email address, or any other unique identifier that the user provides.</li>
-                <li><strong>entered_password:</strong> This is the password that the user inputs during the login attempt.</li>
+                <li><strong>stored_hash:</strong> The hashed password retrieved from the database, created using the original password and identifier.</li>
+                <li><strong>identifier:</strong> A unique identifier for the user, such as their username or email.</li>
+                <li><strong>entered_password:</strong> The password input by the user during login.</li>
             </ul>
-
+        
             <h3>Combining Inputs:</h3>
-            <p>The function concatenates the user identifier (<code>any</code>), the password entered by the user (<code>entered_password</code>), and a constant value known as <code>PEPPER</code>. This combined string is essential for creating the same input that was originally hashed when the account was created.</p>
-
+            <p>The function combines the identifier, the entered password, and the <code>PEPPER</code> value to form the input used for verification. This ensures consistency with the original hash generation process.</p>
+        
             <h3>Verification Process:</h3>
             <ul>
-                <li>The function uses a try-except block to handle the verification process safely.</li>
-                <li>The <code>ph.verify()</code> method (from a password hashing library) is called with the <code>stored_hash</code> and the combined input as arguments.</li>
-                <li>If the combined input matches the <code>stored_hash</code>, the verification succeeds, and the function returns <code>True</code>, indicating that the entered credentials are correct.</li>
+                <li>Utilizes a try-except block for safe error handling during verification.</li>
+                <li>The <code>ph.verify()</code> method compares the <code>stored_hash</code> with the computed hash of the combined input.</li>
+                <li>Returns <code>True</code> if the input matches; otherwise, it catches the <code>VerifyMismatchError</code> and returns <code>False</code>.</li>
             </ul>
-
-            <h3>Error Handling:</h3>
-            <ul>
-                <li>If the credentials do not match, a <code>VerifyMismatchError</code> is raised. The function catches this error in the except block and returns <code>False</code>, indicating that the verification has failed.</li>
-            </ul>
-            
+        
             <h2>is_strong_password</h2>
             <pre><code>
                 <span class="function">def</span> <span class="keyword">is_strong_password</span>(<span class="keyword">password</span>):
                     <span class="keyword">if</span> <span class="keyword">len</span>(<span class="keyword">password</span>) < <span class="keyword">12</span>:
+                        <span class="keyword">return</span> <span class="keyword">False</span>, <span class="string">"Password must be at least 12 characters long."</span>
                     <span class="keyword">if</span> <span class="keyword">not</span> re.<span class="keyword">search</span>(<span class="string">r'[A-Z]'</span>, <span class="keyword">password</span>):
+                        <span class="keyword">return</span> <span class="keyword">False</span>, <span class="string">"Must contain at least one uppercase letter."</span>
                     <span class="keyword">if</span> <span class="keyword">not</span> re.<span class="keyword">search</span>(<span class="string">r'[a-z]'</span>, <span class="keyword">password</span>):
+                        <span class="keyword">return</span> <span class="keyword">False</span>, <span class="string">"Must contain at least one lowercase letter."</span>
                     <span class="keyword">if</span> <span class="keyword">not</span> re.<span class="keyword">search</span>(<span class="string">r'[0-9]'</span>, <span class="keyword">password</span>):
+                        <span class="keyword">return</span> <span class="keyword">False</span>, <span class="string">"Must contain at least one digit."</span>
                     <span class="keyword">if</span> <span class="keyword">not</span> re.<span class="keyword">search</span>(<span class="string">r'[!@#$%^&*(),.?":{}|<>]'</span>, <span class="keyword">password</span>):
+                        <span class="keyword">return</span> <span class="keyword">False</span>, <span class="string">"Must contain at least one special character."</span>
                     <span class="keyword">return</span> <span class="keyword">True</span>, <span class="string">"Password is strong."</span>
-            </code></pre>
-
-            <p>The <code>is_strong_password</code> function is designed to evaluate the strength of a given password based on a set of predefined criteria. Its primary purpose is to ensure that a password meets specific security requirements to enhance user account safety.</p>
+                </code></pre>
+            <p>The <code>is_strong_password</code> function assesses password strength based on security criteria, ensuring the password meets the following:</p>
             <ul>
-                <li>
-                    <strong>Minimum Length:</strong>
-                    <p>The function checks if the password is at least 12 characters long. If the password length is less than 12, it returns <code>False</code> with the message "Password must be at least 12 characters long."</p>
-                </li>
-                <li>
-                    <strong>Uppercase Letter:</strong>
-                    <p>It verifies that there is at least one uppercase letter in the password using a regular expression. If no uppercase letters are found, it returns <code>False</code> with the message "Password must contain at least one uppercase letter."</p>
-                </li>
-                <li>
-                    <strong>Lowercase Letter:</strong>
-                    <p>The function checks for the presence of at least one lowercase letter. If it doesn’t find any lowercase letters, it returns <code>False</code> with the message "Password must contain at least one lowercase letter."</p>
-                </li>
-                <li>
-                    <strong>Digit:</strong>
-                    <p>It ensures that there is at least one digit in the password. If there are no digits, it returns <code>False</code> with the message "Password must contain at least one digit."</p>
-                </li>
-                <li>
-                    <strong>Special Character:</strong>
-                    <p>The function checks for the presence of at least one special character (e.g., <code>!@#$%^&*(),.?":{}|&lt;&gt;</code>). If no special characters are found, it returns <code>False</code> with the message "Password must contain at least one special character."</p>
-                </li>
+                <li><strong>Minimum Length:</strong> At least 12 characters.</li>
+                <li><strong>Uppercase Letter:</strong> Includes at least one uppercase letter.</li>
+                <li><strong>Lowercase Letter:</strong> Includes at least one lowercase letter.</li>
+                <li><strong>Digit:</strong> Includes at least one digit.</li>
+                <li><strong>Special Character:</strong> Contains at least one special character (e.g., <code>!@#$%^&*(),.?":{}|&lt;&gt;</code>).</li>
             </ul>
-                   
         </div>
 
         <div class="box">
