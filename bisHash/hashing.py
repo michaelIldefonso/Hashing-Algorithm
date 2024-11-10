@@ -38,21 +38,16 @@ def is_strong_password(password):
         return False, "Password must contain at least one special character."
     return True, "Password is strong."
 
-# Rate-limited function to hash the password
+
+
 def bis_hash(identifier, password):
-    """Hash the password"""
-    combined_input = identifier + password + PEPPER
-    return ph.hash(combined_input)
-
-
-def rate_limited_bis_hash(identifier, password):
     current_time = time.time()
     
     # Clear out outdated attempts
     bisHash_attempts[identifier] = [timestamp for timestamp in bisHash_attempts[identifier] if current_time - timestamp < ONE_MINUTE]
 
     if len(bisHash_attempts[identifier]) >= 5:  # Maximum 5 attempts per identifier per minute
-        raise Exception("Rate limit exceeded for password hashing.")
+        raise Exception("Too many sign-up attempts. Please try again later.")
     
     # Log this attempt
     bisHash_attempts[identifier].append(current_time)
