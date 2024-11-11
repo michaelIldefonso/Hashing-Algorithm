@@ -133,7 +133,7 @@ header::after {
 .content {
     flex: 1;
     padding: 40px;
-    max-width: 100%;
+    max-width: 86%;
     margin-left: 220px; 
     color: black;
     padding-bottom: 60px; 
