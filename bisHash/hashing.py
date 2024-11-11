@@ -47,7 +47,7 @@ def bis_hash(ip, identifier, password):
     bisHash_attempts[ip] = [timestamp for timestamp in bisHash_attempts[ip] if current_time - timestamp < ONE_MINUTE]
 
     if len(bisHash_attempts[ip]) >= 5:  # Maximum 5 attempts per identifier per minute
-        raise Exception("Too many sign-up attempts. Please try again later.")
+        return"Too many sign-up attempts. Please try again later."
     
     # Log this attempt
     bisHash_attempts[ip].append(current_time)
