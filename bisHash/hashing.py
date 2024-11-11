@@ -7,7 +7,7 @@ import time
 from collections import defaultdict
 
 PEPPER = "jdafhpoahsofdashjp"
-ONE_MINUTE = 60
+ONE_MINUTE = 60 * 10
 MAX_FAILED_ATTEMPTS = 5
 LOCKOUT_TIME = 10 * 60  # Time for lockout if the max number of attemot is exceeded (in seconds)
 
@@ -40,17 +40,17 @@ def is_strong_password(password):
 
 
 
-def bis_hash(identifier, password):
+def bis_hash(ip, identifier, password):
     current_time = time.time()
     
     # Clear out outdated attempts
-    bisHash_attempts[identifier] = [timestamp for timestamp in bisHash_attempts[identifier] if current_time - timestamp < ONE_MINUTE]
+    bisHash_attempts[ip] = [timestamp for timestamp in bisHash_attempts[ip] if current_time - timestamp < ONE_MINUTE]
 
-    if len(bisHash_attempts[identifier]) >= 5:  # Maximum 5 attempts per identifier per minute
-        raise Exception("Too many sign-up attempts. Please try again later.")
+    if len(bisHash_attempts[ip]) >= 5:  # Maximum 5 attempts per identifier per minute
+        return"Too many sign-up attempts. Please try again later."
     
     # Log this attempt
-    bisHash_attempts[identifier].append(current_time)
+    bisHash_attempts[ip].append(current_time)
     
     # Perform the hash
     combined_input = identifier + password + PEPPER
