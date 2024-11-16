@@ -24,6 +24,7 @@ ph = PasswordHasher(
     salt_len=16 # length of salt
 )
 
+
 def is_strong_password(password):
     """Check if password is Strong."""
     if len(password) < 12:
@@ -47,7 +48,7 @@ def bis_hash(ip, identifier, password):
     bisHash_attempts[ip] = [timestamp for timestamp in bisHash_attempts[ip] if current_time - timestamp < ONE_MINUTE]
 
     if len(bisHash_attempts[ip]) >= 5:  # Maximum 5 attempts per identifier per minute
-        return"Too many sign-up attempts. Please try again later."
+        raise TooManyAttemptsError("Too many sign-up attempts. Please try again later.")
     
     # Log this attempt
     bisHash_attempts[ip].append(current_time)
@@ -82,3 +83,7 @@ def verify_password(stored_hash, identifier, entered_password):
     except VerifyMismatchError:
         track_failed_attempt(identifier)
         return False
+    
+class TooManyAttemptsError(Exception):
+    """Exception raised when there are too many attempts in a given time frame."""
+    pass
