@@ -6,7 +6,7 @@ import os
 import time
 from collections import defaultdict
 
-PEPPER = "jdafhpoahsofdashjp"
+PEPPER = "802b59814e49623def0075db882f3ab45a0021de"
 ONE_MINUTE = 60 * 10
 MAX_FAILED_ATTEMPTS = 5
 LOCKOUT_TIME = 10 * 60  # Time for lockout if the max number of attemot is exceeded (in seconds)
