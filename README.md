@@ -2,6 +2,16 @@
 
 `bisHash` is a lightweight Python module for secure password hashing using Argon2 with additional peppering, strong password validation, and built-in rate-limiting to protect against brute-force and abuse in login or signup flows.
 
+
+---
+
+
+## ⚠️ Notes
+
+- This is an prototype, demonstration purposes omnly
+- In-memory tracking is used for failed attempts. **Replace with persistent storage** (like Redis) for production.
+- The internal `PEPPER` should ideally be loaded from an **environment variable** in secure environments.
+
 ---
 
 ## 📦 Installation
@@ -78,14 +88,6 @@ Verifies a given password against the stored hash and applies login lockout rule
 ### `TooManyAttemptsError`
 Raised if the rate limit is exceeded (e.g., too many signup attempts).
 
----
-
-## ⚠️ Notes
-
-- In-memory tracking is used for failed attempts. **Replace with persistent storage** (like Redis) for production.
-- The internal `PEPPER` should ideally be loaded from an **environment variable** in secure environments.
-
----
 
 ## 🧪 Defaults
 
